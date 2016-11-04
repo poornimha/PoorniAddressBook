@@ -40,11 +40,21 @@ void QtAddressBookGUI::createWidgets()
 
     list = new QtContactList(dataSource);
     list->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    /*QFont font;
+        font.setPointSize(50);
+        font.setBold(true);
 
+         QLabel textLabel=new QLabel(this);
+          textLabel.setFont(font);
+        textLabel.setAutoFillBackground(true);*/
+    setStyleSheet("background-color:cyan;background-image:url(C:/Users/Public/Pictures/Sample Pictures/lighthouse.jpg)");
     newContactButton = new QPushButton("New Contact");
+    newContactButton->setStyleSheet("background-color:red;color:yellow;font-size:14pt;font-style: Italic;font-weight: bold");
+   // newContactButton->setStyleSheet("foreground-color:yellow");
     editContactButton = new QPushButton("Edit");
+    editContactButton->setStyleSheet("background-color:yellow");
     deleteContactButton = new QPushButton("Delete");
-
+    deleteContactButton->setStyleSheet("background-color:cyan");
     QHBoxLayout *buttonLayout = new QHBoxLayout();
     buttonLayout->addWidget(newContactButton);
     buttonLayout->addWidget(editContactButton);
@@ -56,6 +66,7 @@ void QtAddressBookGUI::createWidgets()
 
     QHBoxLayout *mainLayout = new QHBoxLayout();
     mainLayout->addWidget(list);
+    //rightSideLayout->setStyleSheet("background-color:green");
     mainLayout->addLayout(rightSideLayout);
     
     //Connect contact list to the detail form

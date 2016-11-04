@@ -35,7 +35,7 @@ void SQLiteDataSource::createTable()
                         "firstname TEXT NOT NULL,"
                         "lastname TEXT NOT NULL,"
                         "phonenum TEXT NOT NULL,"
-                        "address TEXT,"
+                        "address TEXT NOT NULL,"
                         "email TEXT);";
 
     SQLiteStatementHandle createTableStatement(sqlStr, database.get());
