@@ -9,7 +9,8 @@ QtContactForm::QtContactForm(QWidget *parent) :
         lastNameField(new QLineEdit()),
         addressField(new QLineEdit()),
         phoneNumberField(new QLineEdit()),
-        emailField(new QLineEdit())
+        emailField(new QLineEdit()),
+        cityField(new QLineEdit())
 {
   // QLabel *textLabel=new QLabel();
    //textLabel->setText("<font color='red'>*</font>");
@@ -20,6 +21,7 @@ QtContactForm::QtContactForm(QWidget *parent) :
     addRow("Address<font color='red'>*</font>", addressField);
     addRow("Phone Number<font color='red'>*</font>", phoneNumberField);
     addRow("Email", emailField);
+    addRow("City", cityField);
 
 
 }
@@ -31,4 +33,5 @@ void QtContactForm::clear()
     addressField->setText("");
     phoneNumberField->setText("");
     emailField->setText("");
+    cityField->setTect("");
 }
