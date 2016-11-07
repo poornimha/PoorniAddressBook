@@ -37,7 +37,7 @@ void SQLiteDataSource::createTable()
                         "phonenum TEXT NOT NULL,"
                         "address TEXT NOT NULL,"
                         "email TEXT,"
-                         "city TEXT,");
+                         "city TEXT);";
 
     SQLiteStatementHandle createTableStatement(sqlStr, database.get());
 
@@ -116,7 +116,6 @@ void SQLiteDataSource::fillContactFromRow(sqlite3_stmt *s, Contact& c)
     c.city = reinterpret_cast<const char*>(sqlite3_column_text(s, 6));
 }
 
-
 ErrorInfo SQLiteDataSource::getContact(Contact::ContactId id, Contact& c)
 {
     //create sql prepared statement
@@ -164,7 +163,7 @@ ErrorInfo SQLiteDataSource::getAllContacts(Contact::ContactRecordSet &rs)
         Contact temp;
                 
         //package column values into Out parameter 
-        fillContactFromRow(queryStatement.get(), temp);
+       fillContactFromRow(queryStatement.get(), temp);
         rows.push_back(temp);
 
         stepResult = sqlite3_step(queryStatement.get());
@@ -180,7 +179,7 @@ ErrorInfo SQLiteDataSource::addContact(const Contact& c)
 {
     //create sql prepared statement
     std::string sqlStr = "INSERT INTO Contacts VALUES("
-                        "NULL,?,?,?,?,?);";
+                        "NULL,?,?,?,?,?,?);";
     
     SQLiteStatementHandle insertStatement(sqlStr, database.get()); 
 
@@ -192,7 +191,7 @@ ErrorInfo SQLiteDataSource::addContact(const Contact& c)
     sqlite3_bind_text(insertStatement.get(), 4, c.address.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(insertStatement.get(), 5, c.email.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(insertStatement.get(), 6, c.city.c_str(), -1, SQLITE_STATIC);
-
+   //sqlite3_bind_int(insertStatement.get(),7,id);
     //execute SQL statement & check results
     int stepResult = sqlite3_step(insertStatement.get());
     
@@ -213,7 +212,7 @@ ErrorInfo SQLiteDataSource::updateContact(Contact::ContactId id, const Contact& 
     std::string sqlStr = "UPDATE Contacts SET "
                          "firstname=?, lastname=?,"
                          "phonenum=?, address=?,"
-                         "email=? WHERE id=?;"; 
+                         "email=?, city=? WHERE id=?;";
     
     SQLiteStatementHandle updateStatement(sqlStr, database.get()); 
 
@@ -222,7 +221,7 @@ ErrorInfo SQLiteDataSource::updateContact(Contact::ContactId id, const Contact& 
     sqlite3_bind_text(updateStatement.get(), 3, c.phoneNumber.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(updateStatement.get(), 4, c.address.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(updateStatement.get(), 5, c.email.c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_text(updateStatement.get(), 5, c.city.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(updateStatement.get(), 6, c.city.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_int(updateStatement.get(), 7, id);
 
     //execute SQL statement & check results
@@ -282,3 +281,26 @@ ErrorInfo SQLiteDataSource::deleteAllContacts()
     return ErrorInfo(ERR_OK, "OK");
 }
 
+/*ErrorInfo SQLiteDataSource::findContact()
+{
+    //create sql prepared statement
+    //std::string sqlStr = "DELETE FROM Contacts WHERE id=?;";
+    std::string sqlStr = "SELECT * FROM Contacts WHERE phonenum =?;";
+    //SQLiteStatementHandle deleteStatement(sqlStr, database.get());
+
+    SQLiteStatementHandle queryStatement(sqlStr, database.get());
+
+
+    //execute SQL statement & check results
+    int stepResult = sqlite3_step(queryStatement.get());
+
+    if(stepResult != SQLITE_DONE)
+    {
+        return ErrorInfo(ERR_DATASOURCE_ERROR, "data not present.");
+    }
+
+    notifyViews();
+
+    return ErrorInfo(ERR_OK, "OK");
+}
+*/

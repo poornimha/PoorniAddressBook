@@ -40,14 +40,8 @@ void QtAddressBookGUI::createWidgets()
 
     list = new QtContactList(dataSource);
     list->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    /*QFont font;
-        font.setPointSize(50);
-        font.setBold(true);
 
-         QLabel textLabel=new QLabel(this);
-          textLabel.setFont(font);
-        textLabel.setAutoFillBackground(true);*/
-    setStyleSheet("background-color:cyan;background-image:url(C:/Users/Public/Pictures/Sample Pictures/lighthouse.jpg)");
+   // setStyleSheet("background-color:cyan;background-image:url(C:/Users/Public/Pictures/Sample Pictures/lighthouse.jpg)");
     newContactButton = new QPushButton("New Contact");
     newContactButton->setStyleSheet("background-color:red;color:yellow;font-size:14pt;font-style: Italic;font-weight: bold");
    // newContactButton->setStyleSheet("foreground-color:yellow");
@@ -55,10 +49,14 @@ void QtAddressBookGUI::createWidgets()
     editContactButton->setStyleSheet("background-color:yellow");
     deleteContactButton = new QPushButton("Delete");
     deleteContactButton->setStyleSheet("background-color:cyan");
+   // findContactButton=new QPushButton("Find");
+
+
     QHBoxLayout *buttonLayout = new QHBoxLayout();
     buttonLayout->addWidget(newContactButton);
     buttonLayout->addWidget(editContactButton);
     buttonLayout->addWidget(deleteContactButton);
+   // buttonLayout->addWidget(findContactButton);
 
     QVBoxLayout *rightSideLayout = new QVBoxLayout();
     rightSideLayout->addWidget(detailView);
@@ -83,6 +81,8 @@ void QtAddressBookGUI::createWidgets()
 
     connect(editContactButton, SIGNAL(clicked()),
             this, SLOT(editContact()));
+   /* connect(findContactButton,SIGNAL(clicked()),
+            this,SLOT(findContact()));*/
 
     //tell the sub-widgets to refresh their data from
     //

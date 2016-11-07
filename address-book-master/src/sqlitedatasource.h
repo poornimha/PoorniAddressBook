@@ -35,7 +35,7 @@ class SQLiteDataSource : public AddressBookModel
         virtual ErrorInfo updateContact(Contact::ContactId id, const Contact&);
         virtual ErrorInfo deleteContact(Contact::ContactId id);
         virtual ErrorInfo deleteAllContacts();
-  
+        //virtual ErrorInfo findContact();
     private:
         void createTable();
         void fillContactFromRow(sqlite3_stmt *s, Contact &c);
