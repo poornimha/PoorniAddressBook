@@ -1,0 +1,4 @@
+#ifndef QTFINDCONTACT_H
+#define QTFINDCONTACT_H
+
+#endif // QTFINDCONTACT_H
